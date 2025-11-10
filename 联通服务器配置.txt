@@ -1,0 +1,69 @@
+算力设备1信息：
+公网IP：61.51.24.211
+内网IP：192.168.0.161
+
+算力设备2信息：
+公网IP：61.51.24.252
+内网IP：192.168.0.92
+
+账号：root
+密码：*y$zZm5MAyUS:KWA
+系统：Ubuntu22.04.3
+驱动：24.1.0.3   
+
+ssh root@192.168.0.161
+
+scp root@192.168.0.92:/data02/rws/weitiao/huawei/train_model.py ./
+
+然后restart-下容器，cd /usr/local/Ascend/mindie/latest/mindie-service/，重新执行-下./bin/mindieservice_daemon
+
+curl 192.168.0.92:1025/v1/chat/completions -d ' {
+"model": "qwen2_5_vl",
+"messages": [{
+"role": "user",
+"content": [
+{"type": "image_url", "image_url": "https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png"},
+{"type": "text", "text": "Explain the details in the image."}
+]
+}],
+"max_tokens": 512,
+"do_sample": true,
+"repetition_penalty": 1.00,
+"temperature": 0.01,
+"top_p": 0.001,
+"top_k": 1
+}'
+
+ curl 192.168.0.161:2025/v1/chat/completions -d ' {
+"model": "qwen2_5_vl",
+"messages": [{
+"role": "user",
+"content": [
+{"type": "image_url", "image_url": "https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png"},
+{"type": "text", "text": "Explain the details in the image."}
+]
+}],
+"max_tokens": 512,
+"do_sample": true,
+"repetition_penalty": 1.00,
+"temperature": 0.01,
+"top_p": 0.001,
+"top_k": 1
+}'
+
+  curl 192.168.0.161:1025/v1/chat/completions -d ' {
+"model": "qwen2_5_vl",
+"messages": [{
+"role": "user",
+"content": [
+{"type": "image_url", "image_url": "https://modelscope.oss-cn-beijing.aliyuncs.com/resource/qwen.png"},
+{"type": "text", "text": "Explain the details in the image."}
+]
+}],
+"max_tokens": 512,
+"do_sample": true,
+"repetition_penalty": 1.00,
+"temperature": 0.01,
+"top_p": 0.001,
+"top_k": 1
+}'
