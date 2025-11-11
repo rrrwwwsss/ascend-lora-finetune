@@ -9,7 +9,9 @@
 账号：root
 密码：*y$zZm5MAyUS:KWA
 系统：Ubuntu22.04.3
-驱动：24.1.0.3   
+驱动：24.1.0.3  
+
+ASCEND_RT_VISIBLE_DEVICES=0 python train_model.py 
 
 ssh root@192.168.0.161
 
