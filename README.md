@@ -26,5 +26,29 @@
 ASCEND_RT_VISIBLE_DEVICES=7 python train_model.py
 ```
 ### 2. 性能对比
-微调完成后，运行以下脚本以比较原始模型与微调后模型的性能：
-python comparison_model.py
+#### 2.1 提示词性能对比
+运行以下脚本以后台方式比较原始提示词与调整后的提示词性能（在同一个模型上：ori_model）：
+```bash
+nohup bash -c 'export ASCEND_RT_VISIBLE_DEVICES=7 && python comparison_prompt.py' > log_prompt.txt 2>&1 &
+nohup python comparison_prompt.py > log_prompt.txt 2>&1 &
+```
+- log.txt ：把标准输出重定向到 log.txt 文件；
+- 查看是否运行中：
+ps -ef | grep comparison_prompt.py
+- 查看实时日志：
+tail -f log_prompt.txt
+- 停止：
+kill -9 <PID>
+#### 2.2 模型性能对比
+微调完成后，运行以下脚本以后台方式比较原始模型与微调后模型的性能：
+```bash
+nohup bash -c 'export ASCEND_RT_VISIBLE_DEVICES=7 && python comparison_model.py' > log.txt 2>&1 &
+nohup python comparison_model.py > log.txt 2>&1 &
+```
+- log.txt ：把标准输出重定向到 log.txt 文件；
+- 查看是否运行中：
+ps -ef | grep comparison_model.py
+- 查看实时日志：
+tail -f log.txt
+- 停止：
+kill -9 <PID>

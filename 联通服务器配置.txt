@@ -9,13 +9,18 @@
 账号：root
 密码：*y$zZm5MAyUS:KWA
 系统：Ubuntu22.04.3
-驱动：24.1.0.3  
-
-ASCEND_RT_VISIBLE_DEVICES=0 python train_model.py 
+驱动：24.1.0.3   
 
 ssh root@192.168.0.161
 
-scp root@192.168.0.92:/data02/rws/weitiao/huawei/train_model.py ./
+watch -n 1 npu-smi info
+
+ASCEND_RT_VISIBLE_DEVICES=7 python train_model.py
+cd /data02/rws/weitiao/huawei910/
+
+scp root@192.168.0.92:/data02/rws/weitiao/huawei910/train_model.py ./
+scp /data1/qwen2v/脚本/模型微调/华为910模型部署微调/comparison_model.py root@192.168.0.92:/data02/rws/weitiao/huawei910/
+scp -r root@192.168.0.92:/data02/rws/weitiao/huawei910/models/output/qwen2_vl_finetuned/checkpoint-176 ./output
 
 然后restart-下容器，cd /usr/local/Ascend/mindie/latest/mindie-service/，重新执行-下./bin/mindieservice_daemon
 
